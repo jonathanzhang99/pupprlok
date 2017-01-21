@@ -1,0 +1,23 @@
+{
+  "name": "pupprlok",
+  "version": "1.0.0",
+  "description": "iOS Home Security System with Machine Learning",
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.14.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jonathanzhang99/pupprlok.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jonathanzhang99/pupprlok/issues"
+  },
+  "homepage": "https://github.com/jonathanzhang99/pupprlok#readme"
+}
