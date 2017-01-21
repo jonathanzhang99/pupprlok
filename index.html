@@ -1,0 +1,69 @@
+<!doctype html>
+<html>
+  <head>
+  	<style type="text/css">
+/*	video{
+	  -moz-transform:rotate(20deg);
+	  -webkit-transform:rotate(20deg);
+	  -o-transform:rotate(20deg);
+	  -ms-transform:rotate(20deg);
+	  transform:rotate(20deg);
+	}*/
+
+	</style>
+
+    <!-- VideoJS styles -->
+   <link rel="stylesheet" href="lib/videojs/video-js.min.css">
+  </head>
+  <body>
+     <div id="video-container">
+    	<video id="red5pro-subscriber"></video>
+ 	</div>
+
+    <!-- * Recommended WebRTC Shim -->
+    <script src="https://webrtc.github.io/adapter/adapter-latest.js"></script>
+       <!-- Red5 Pro SDK -->
+    <script src="lib/red5pro/red5pro-sdk.min.js"></script>
+    <!-- Failover Support libs -->
+    <script src="lib/videojs/videojs.min.js"></script>
+    <script src="lib/videojs/videojs-media-sources.min.js"></script>
+    <script src="lib/videojs/videojs.hls.min.js"></script>
+ 
+    <script>
+	// Create a new instance of the WebRTC subcriber.
+	var subscriber = new red5prosdk.RTCSubscriber();
+
+	// Create a view instance based on video element id.
+	var viewer = new red5prosdk.PlaybackView('red5pro-subscriber');
+	// Attach the subscriber to the view.
+	viewer.attachSubscriber(subscriber);
+	 var protocol = window.location.protocol;
+	  var isSecure = protocol.charAt(protocol.length - 2);
+
+	  // Using Chrome/Google TURN/STUN servers.
+	  var iceServers = [{urls: 'stun:stun2.l.google.com:19302'}];
+
+	  // Initialize, (I changed the ws thing, wssand port 8083 werent working)
+	  subscriber.init({
+	      protocol: isSecure ? 'ws' : 'ws',
+	      host: 'localhost',
+	      port: isSecure ? 8081 : 8081,
+	      app: 'live',
+	      streamName: 'mystream',
+	      iceServers: iceServers,
+	      subscriptionId: 'subscriber-' + Math.floor(Math.random() * 0x10000).toString(16),
+	    })
+	    .then(function() {
+	      // Invoke the playback action
+	      return subscriber.play();
+	    })
+	    .catch(function(error) {
+	      // A fault occurred while trying to initialize and subscribe to the stream.
+	      console.error(error);
+	    });
+
+	</script>
+
+
+  </body>
+</html>
